@@ -7,15 +7,13 @@ from discord.ext import commands
 bot = commands.Bot(command_prefix='1')# Prefix
 
 @bot.command()
-async def avatar(ctx, member: discord.Member=None):# avatar command <1avatar>
-	if member is None:
-		me = ctx.author
-		av = me.avatar_url
-	else:
-		av = member.avatar_url
-	eme = discord.Embed()
-	eme.set_image(url=av)
-	await ctx.reply(embed = eme, mention_author=True)
+async def avatar(ctx):
+    member = ctx.author
+    e = discord.Embed(title="avatar link ", url=f"{member.avatar_url}",coulor=0xF40E0E)
+    e.set_author(name=f"{member.name}", icon_url=f"{member.avatar_url}")
+    e.set_image(url=f"{member.avatar_url}")
+    e.set_footer(text=f"requested by {member.name}", icon_url=f"{member.avatar_url}")
+    await ctx.send(embed=e)
 
 # event 
 @bot.event
@@ -33,4 +31,4 @@ async def on_ready():
 async def id(ctx):# ومنشنت احد البوت يرسل لك ايديه
   await ctx.send(f"{ctx.author.mention}, **Your discord ID is** ||{ctx.author.id}||")
 
-bot.run("OTU3MjIwNDg5NDk4MDc5MjYy.Yj7nDA.nDVnRb9hWi0T04T1W-EukycK3-E") # Bot Token https://discord.com/developers/applications
+bot.run("TOKEN HERE") # Bot Token https://discord.com/developers/applications
